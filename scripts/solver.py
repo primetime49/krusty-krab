@@ -29,14 +29,14 @@ q = lil_matrix((q_dim,q_dim))
 
 def access_q(n1,s1,b1,n2,s2,b2):
     global q
-    if n1 == 0:
+    '''if n1 == 0:
         pass
     elif n2 == 0:
         pass
     elif n1 == T+1:
         pass
     else:
-        return ((0,0))
+        return ((0,0))'''
     
     q_dim = ((q.shape[0]-d1)/d2)
 
