@@ -29,14 +29,14 @@ q = lil_matrix((q_dim,q_dim))
 
 def access_q(n1,s1,b1,n2,s2,b2):
     global q
-    '''if n1 == 0:
+    if n1 == 0:
         pass
     elif n2 == 0:
         pass
     elif n1 == T+1:
         pass
     else:
-        return ((0,0))'''
+        return ((-1,-1))
     
     q_dim = ((q.shape[0]-d1)/d2)
 
@@ -70,6 +70,7 @@ def init_transitions_arr(dim):
     for n in range(dim):
         for s in range(N+1):
             for b in range (N+1):
+                    
                 if n > 0 and (s,b) in access_map_v2:
                     r,c = access_q(n,s,b, n+1,s,b)
                     q[r,c] = arr_rate
@@ -229,13 +230,13 @@ for r in bc[1:]:
 a = np.transpose(bc)
 b = np.zeros(d1+d2)
 b[-1] = 1
-pi = np.linalg.solve(a,b)
+raw_pi = np.linalg.solve(a,b)
 
 #
 ir = np.linalg.inv(np.subtract(np.identity(R.shape[0]),R))
-r = np.matmul(pi[d1:],ir)
-alfa = np.sum(pi[:d1]) + np.sum(r)
-pi = pi/alfa
+r = np.matmul(raw_pi[d1:],ir)
+alfa = np.sum(raw_pi[:d1]) + np.sum(r)
+pi = raw_pi/alfa
 pis = [pi[:d1],pi[d1:]]
 for i in range(2,max(N,100)):
     pis.append(np.matmul(pis[i-1],R))
